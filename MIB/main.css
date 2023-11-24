@@ -1,0 +1,23 @@
+html,
+body,
+#viewDiv {
+  padding: 0;
+  margin: 0;
+  height: 95%;
+  width: 100%;
+}
+
+#instructionsDiv {
+  padding: 12px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  width: 200px;
+}
+
+#inputs{
+  background-color: aliceblue;
+  text-align: center;
+  margin-right: 20px;
+  height: 50px;
+  width: 200px;
+}

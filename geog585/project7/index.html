@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <title>FLOODS IN YAOUNDE 5 & 7</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" type="text/css" crossorigin="">
+      <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"> 
+      <link rel="stylesheet" href="plugins/easy-button.css">
+      <link rel="stylesheet" href="plugins/L.Control.Sidebar.css">
+      <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css" media="screen">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" crossorigin=""></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+      <script src="lesson7_data_leaflet/poi.js"></script>
+      <script src="lesson7_data_leaflet/flood_area.geojson"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+      <script src="plugins/easy-button.js"></script>
+      <script src="plugins/L.Control.Sidebar.js"></script>
+      
+      <link rel="stylesheet" href="style.css" type="text/css">
+       
+        <script type="text/javascript">
+
+            var map;
+
+            function init() {
+                // create map and set center and zoom level
+                map = new L.map('mapid');
+                //map.setView([3.8850,11.4921],13);
+
+                // create tile layer and add it to map
+                var darkOSM = L.tileLayer("https://tile.jawg.io/dark/{z}/{x}/{y}.png?api-key=KEzgT1q0xEDQ06n23POIRMJqrtuHZOoo4FPNm1GfrNEzEOcnaQxuznduTbaAvGg3");
+                darkOSM.addTo(map);
+                
+                var osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png")
+                var stamenBW = L.tileLayer("http://a.tile.stamen.com/toner/{z}/{x}/{y}.png")
+                var stamenWater = L.tileLayer("http://c.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg")
+                var ThunderforestLandscape = L.tileLayer("https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey=7e6c6a9605f34973aac848c9d955ce02")
+                var esriImagery = L.tileLayer("https://clarity.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}")
+
+                // create and add the tile layer
+                var tiles = L.tileLayer('http://personal.psu.edu/dcd5396/tiles/floodBasemap/{z}/{x}/{y}.png', { 
+                    attribution: 'Data from SOGEFI, Derrick Demeveng',
+                    maxZoom: 18
+                });
+                tiles.setZIndex(2).addTo(map);
+                
+                // variables definition
+                var floodArea;
+                var pois;
+
+                var selection;
+                var selectedLayer;
+                //var themesArray = ["GESTION DES DECHETS","ACTIVITE ECONOMIQUE", "EQUIPEMENT DE BASE","ADMINISTRATIF", "TOURISME / LOISIRS", "RESEAU EAU", "TRANSPORT / MOBILITE","REFERENTIEL",];
+
+                var themesArray  = new Set();
+                var selectDiv = document.getElementById("themes");
+                var floodDiv = document.getElementById("flood")
+                var bsmap_cont = document.getElementById("basemaps_container")
+                var bsmap = document.getElementById("basemaps")
+                var data = {};
+                var floodArray = new Set();
+                var ptsIntersect;
+                var turfPtsIntersect;
+                var myChart;
+                var myChart2;
+                var selProperties;
+                var selData = {};
+                var cluster;
+                var currentBasemap;
+
+                // define the styles for the garden layer (unselected and selected)
+                function floodStyle(feature) {
+                    return {
+                        fillColor: "yellow",
+                        fillOpacity: 0.5,
+                        color: '#B04173',
+                        weight: 1,
+                    };
+                }
+
+                function floodSelectedStyle(feature) {
+                    return {
+                        fillColor: "red",
+                        color: '#0000FF',
+                        fillOpacity: 0.5,
+                        weight: 1,
+                    };
+                }
+
+                // Total POIs flooded per category
+                var floodedPOIPlot = function(){
+                    turfPtsIntersect = turf.pointsWithinPolygon(poi, flood);
+                    selProperties = turfPtsIntersect.features.map(function(e){
+                        return e.properties
+                    })
+
+                    for (i in selProperties){
+                        if (selProperties[i].SECTEUR in selData){
+                            selData[selProperties[i].SECTEUR]++;
+                        }else{
+                            selData[selProperties[i].SECTEUR] = 1
+                        }
+                    }
+
+                    const ctx2 = document.getElementById('myChart2').getContext('2d');
+                    myChart2 = new Chart(ctx2, {
+                        type: 'bar',
+                        data: {
+                            labels: Object.keys(selData),
+                            datasets: [{
+                                label: "Flooded POIs per Categories",
+                                data: Object.values(selData),
+                                backgroundColor: "orange",
+                                borderColor: "white",
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+
+                floodedPOIPlot()
+
+                // handle click events on garden features
+                function floodOnEachFeature(feature, layer){
+                    layer.on({
+                        click: function(e) {
+                        if (selection) {            
+                            resetStyles();
+                        }
+                                
+                        e.target.setStyle(floodSelectedStyle());
+                        selection = e.target;
+                        selectedLayer = floodArea;
+
+                        // Insert some HTML with the feature name
+                        buildSummaryLabel(feature);
+
+                        L.DomEvent.stopPropagation(e); // stop click event from being propagated further
+                        map.flyToBounds(layer.getBounds())
+
+                        //check if there is a current intersection data created
+                        if (selData){
+                            if(ptsIntersect){
+                                ptsIntersect.removeFrom(map);
+                            }
+                            selData = {}
+                            myChart2.destroy()
+                        }
+                        // turf functions
+                        turfPtsIntersect = turf.pointsWithinPolygon(pois.toGeoJSON(), feature);
+                        selProperties = turfPtsIntersect.features.map(function(e){
+                            return e.properties
+                        })
+                        // populate selected data into dictionary for plotting
+                        for (i in selProperties){
+                            if (selProperties[i].SECTEUR in selData){
+                                selData[selProperties[i].SECTEUR]++;
+                            }else{
+                                selData[selProperties[i].SECTEUR] = 1
+                            }
+                        }
+
+                        // plot the selected feature stats
+                        const ctx2 = document.getElementById('myChart2').getContext('2d');
+                        myChart2 = new Chart(ctx2, {
+                            type: 'bar',
+                            data: {
+                                labels: Object.keys(selData),
+                                datasets: [{
+                                    label: "Flooded POIs per Categories",
+                                    data: Object.values(selData),
+                                    backgroundColor: "orange",
+                                    borderColor: "white",
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+
+                        ptsIntersect = L.geoJSON(turfPtsIntersect, {
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng, selectedPoiIcon);
+                            },
+                        })
+                        ptsIntersect.addTo(map)
+                        }
+                    });
+
+                    floodArray.add(feature.properties.Lieux_du_RDV)
+                }
+
+                // add the gardens GeoJSON layer using the gardensData variable from gardens.js
+                floodArea = new L.geoJSON(flood,{
+                    style: floodStyle,
+                    onEachFeature: floodOnEachFeature,
+                });    
+                            
+                floodArea.addTo(map);
+
+                // Zoom to selected dropdown flood area
+                floodDiv.addEventListener("change", function(){
+                    floodArea.eachLayer(function(layer) {
+                        if (selection) {            
+                            resetStyles();
+                        }
+
+                        if(layer.feature.properties.Lieux_du_RDV == floodDiv.value){
+                            map.fitBounds(layer.getBounds())
+                            buildSummaryLabel(layer.feature);
+                        };
+                    });
+                })
+
+                // create icons for pantries (selected and unselected)
+                var poiIcon = {
+                    radius: 2,
+                    fillColor: "#ff7800",
+                    color: "#ff7800",
+                    weight: 0.5,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                };
+
+                var selectedPoiIcon = {
+                    radius: 5,
+                    fillColor: "orange",
+                    color: "white",
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                };
+
+                // handle click events on pantry features
+                function poiOnEachFeature(feature, layer){
+                    layer.on({
+                        click: function(e) {
+                        if (selection) {
+                            resetStyles();
+                        }
+                                    
+                        e.target.setStyle(selectedPoiIcon);
+                        selection = e.target;
+                        selectedLayer = pois;
+                                    
+                        // Insert some HTML with the feature name
+                        //buildSummaryLabel(feature);
+
+                        L.DomEvent.stopPropagation(e); // stop click event from being propagated further
+                        }
+                    });
+
+                    themesArray.add(feature.properties.SECTEUR)
+
+                    if (feature.properties.SECTEUR in data){
+                        data[feature.properties.SECTEUR]++;
+                    }else{
+                        data[feature.properties.SECTEUR] = 1
+                    }
+                }   
+                
+                //console.log(data)
+                //console.log(Object.values(data))
+
+                // add the gardens GeoJSON layer using the pantriesData variable from pantries.js
+                pois = new L.geoJSON(poi,{
+                    pointToLayer: function (feature, latlng) {
+                        return L.circleMarker(latlng, poiIcon);
+                    },
+                    onEachFeature: poiOnEachFeature,
+                });    
+                var myData =  L.layerGroup([]);
+                myData.addLayer(pois);
+                myData.addTo(map);
+
+                map.fitBounds(pois.getBounds())
+
+                // handle clicks on the map that didn't hit a feature
+                map.addEventListener('click', function(e) {
+                    if (selection) {
+                        resetStyles();
+                        selection = null;
+                        document.getElementById('infos').style.display = "none"
+                        ptsIntersect.removeFrom(map);
+                        myChart2.destroy()
+                        floodedPOIPlot()
+                    }
+                });
+
+                // function to set the old selected feature back to its original symbol. Used when the map or a feature is clicked.
+                function resetStyles(){
+                    if (selectedLayer === pois) selectedLayer.resetStyle(selection);
+                    else if (selectedLayer === floodArea) selectedLayer.resetStyle(selection);
+                }
+
+                // function to build the HTML for the summary label using the selected feature's "name" property
+                function buildSummaryLabel(currentFeature){
+                    document.getElementById('infos').style.display = "block"
+
+                    var rdv = currentFeature.properties.Lieux_du_RDV
+                    var arrond = currentFeature.properties.Arrondisement
+                    var speed_18 = currentFeature.properties.Vitesse_montee_max_18
+                    var height_18 = currentFeature.properties.Hauteur_eau_max_18
+                    var stag_time_18 = currentFeature.properties.Duree_stagnation_18
+                    var damage = currentFeature.properties.Nature_domages
+                    var acteurs = currentFeature.properties.Acteurs_secours
+                    var cause = currentFeature.properties.Causes_Identifiables
+                    var comment = currentFeature.properties.Commentaire_lecons_tirees
+
+                    document.getElementById("title_2").innerHTML = '<h1 id="title_h2" style="margin-top: 0px;">' + arrond + " : " + rdv + '</h1>'
+                    document.getElementById("text").innerHTML = "<table>"+ "<tr><th>Attribute</th><th>Info</th></tr>" + "<tr><td><b>"+ "Water speed   " + "</b></td><td>" + speed_18 + "</td></tr>" + "<tr><td><b>"+ "Max water level  " + "</b></td><td>" + height_18 + "</td></tr>" + "<tr><td><b>"+ "Stagnation time   " + "</b></td><td>" + stag_time_18 + "</td></tr>" + "<tr><td><b>"+ "Type of damage   " + "</b></td><td>" + damage + "</td></tr>" + "<tr><td><b>"+ "Rescue Actors  " + "</b></td><td>" + acteurs + "</td></tr>" + "<tr><td><b>"+ "Cause  " + "</b></td><td>" + cause + "</td></tr>" + "<tr><td><b>"+ "pop comments    " + "</b></td><td>" + comment + "</td></tr>" + "</table>"
+                }
+
+                // stop click propagation to the map on divs
+                var infoDiv = document.getElementById('infos')
+                var filterDiv = document.getElementById('filter')
+
+                L.DomEvent.on(infoDiv, 'click', function (ev) {
+                    L.DomEvent.stopPropagation(ev);
+                });
+
+                L.DomEvent.on(filterDiv, 'click', function (ev) {
+                    L.DomEvent.stopPropagation(ev);
+                });
+
+                L.DomEvent.on(floodDiv, 'click', function (ev) {
+                    L.DomEvent.stopPropagation(ev);
+                });
+
+                L.DomEvent.on(bsmap_cont, 'click', function (ev) {
+                    L.DomEvent.stopPropagation(ev);
+                });
+
+                L.DomEvent.on(bsmap, 'click', function (ev) {
+                    L.DomEvent.stopPropagation(ev);
+                });
+
+                // make infoDiv draggable
+                var draggable = new L.Draggable(infoDiv);
+                draggable.enable();
+
+                //loop through elements in poi and populate the select with themes
+                var themesArraySorted = Array.from(themesArray).sort();
+                var floodArraySorted = Array.from(floodArray).sort();
+                
+                for(let theme of themesArraySorted){
+                    //console.log(theme)
+                    var opt = document.createElement("option");
+                    opt.value= theme;
+                    opt.innerHTML = theme; // whatever property it has
+
+                    // then append it to the select element
+                    selectDiv.appendChild(opt);
+                }
+
+                for(let flood of floodArraySorted){
+                    //console.log(theme)
+                    var opt = document.createElement("option");
+                    opt.value= flood;
+                    opt.innerHTML = flood; // whatever property it has
+
+                    // then append it to the select element
+                    floodDiv.appendChild(opt);
+                }
+
+                // add eventlistener to the select dropdown themes
+                selectDiv.addEventListener("change", function(){
+                    // remove layers from the map and clear layers before adding new filtered
+                    map.removeLayer(myData);
+		            myData.clearLayers();
+                    data = {}
+                    //console.log(data)
+                    // filter and add pois to the map
+                    pois = new L.geoJSON(poi,{
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, poiIcon);
+                        },
+                        onEachFeature: poiOnEachFeature,
+                        filter: filterPOI,
+                    });
+
+                    myData.addLayer(pois);
+                    myData.addTo(map);
+                    // update chart 1 with filtered data
+                    myChart.data.datasets[0].data = Object.values(data);
+                    myChart.data.labels = Object.keys(data);
+                    myChart.update('active')
+                    //console.log(selectDiv.value);
+                })
+
+                //filter function
+                function filterPOI(feature){
+                    //console.log(selectDiv.value)
+                    if (feature.properties.SECTEUR === selectDiv.value) return true;
+                    else if (selectDiv.value ==="All") return true;
+                    else return false;
+                }
+
+                // chart
+                const ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(data),
+                        datasets: [{
+                            label: 'Number of POIs per Theme',
+                            data: Object.values(data),
+                            backgroundColor: "orange",
+                            borderColor: "white",
+                            /* backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 149, 149, 0.2)',
+                                'rgba(149, 139, 64, 0.2)',
+                                'rgba(155, 129, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(255, 149, 149, 1)',
+                                'rgba(149, 139, 64, 1)',
+                                'rgba(155, 129, 64, 1)'
+                            ], */
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                //add zoom extend controls
+                L.easyButton('fa-globe', function(){
+                    map.flyToBounds(pois.getBounds());
+                }).addTo(map);
+
+                /* // close modal box
+                $('#close').click(function(){
+                    document.getElementById('modal-box').style.display = 'none'
+                }); */
+
+                // mousrover basemap divs
+                bsmap.addEventListener("click", function(){
+                    console.log("clicked")
+                    if(bsmap_cont.style.display=="none"){
+                        bsmap_cont.style.display = 'flex'
+                    }else{
+                        bsmap_cont.style.display = 'none'
+                    }
+                });
+
+                // Basemaps selector
+                currentBasemap = darkOSM
+                function changeBasemap(){
+                    //console.log(this.id)
+                    currentBasemap.remove()
+                    if(this.id == "bAndW"){
+                        currentBasemap = darkOSM
+                        currentBasemap.addTo(map);
+                    }else if(this.id == "osm"){
+                        currentBasemap = osm
+                        currentBasemap.addTo(map)
+                    }else if(this.id == "stamenBW"){
+                        currentBasemap = stamenBW
+                        currentBasemap.addTo(map)
+                    }else if(this.id == "stamenWater"){
+                        currentBasemap = stamenWater
+                        currentBasemap.addTo(map)
+                    }else if(this.id == "landScape"){
+                        currentBasemap = ThunderforestLandscape
+                        currentBasemap.addTo(map)
+                    }else if(this.id == "esriImagery"){
+                        currentBasemap = esriImagery
+                        currentBasemap.addTo(map)
+                    }
+                }
+
+                var classbmimg = document.getElementsByClassName("bmImg")
+                for (var i = 0; i < classbmimg.length; i++) {
+                    classbmimg[i].addEventListener('click', changeBasemap, false);
+                }
+
+                var infoImage = document.getElementById("infoImage")
+                infoImage.addEventListener('click', function(){
+                    document.getElementById('modal-box').style.display = 'block'
+                })
+
+                map.addEventListener('click', function(){
+                    console.log(map.getZoom())
+                })
+                
+            }
+            
+        </script>
+
+    </head>
+      <body onload="init()" class="claro">
+
+        <header>
+            <h1 id="title">GeoRisk</h1>
+        </header>
+        <!-- Just an image -->
+
+        <div id="appBody">
+        <div id="mapid">
+            
+            <div id="filters" style="display: flex; background-color: #1566b6; z-index: 10000;">
+                <div id="filter" style="float: left;">
+                    <p style="color: white; text-align: center;"><b>Points of Interest</b></p>
+
+                    <select name="theme" id="themes" class="form-select">
+                        <option value="All">--All--</option>
+                    </select>
+                </div>
+
+                <div id="filter_flood" style="float: left;">
+                    <p style="color: white; text-align: center;"><b>Flood Area</b></p>
+
+                    <select name="flood" id="flood" class="form-select">
+                        <option value="All">--All--</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="infos">
+                <div id="title_2" style="background-color: orange; width: 400px; height: 50px; margin-left: -10px; text-align: center;">
+                </div>
+                <p id="text"></p>
+            </div>
+
+            <div id="basemaps">
+                <img src="img/basemapIcon.png" style="width: 50px; height: 50px; border: solid; border-radius: 5px; border-width: 3px; border-color: #1566b6;">
+            </div>
+
+            <div id="basemaps_container" style="word-wrap: break-word; display: none; flex-direction: row; height: 100px; margin: 5px; padding: 5px; background-color: #1566b6; border: solid; border-radius: 5px; border-color: white; border-width: 2px;">
+                <div style="color: white; text-align: center;">
+                    <img class="bmImg" id="bAndW" src="img/b&w.png" style="width: 75px; height: 75px; border: solid; border-radius: 5px; border-width: 3px; margin: 3px; margin-bottom: 0%;">
+                    <p style="padding: 0%; margin: 0%;">Black & White</p>
+                </div>
+                <div style="color: white; text-align: center;">
+                    <img class="bmImg" id="landScape" src="img/Tile_landscape.png" style="width: 75px; height: 75px; border: solid; border-radius: 5px; border-width: 3px; margin: 3px; margin-bottom: 0%;">
+                    <p style="padding: 0%; margin: 0%;">Hillshade</p>
+                </div>
+                <div style="color: white; text-align: center;">
+                    <img class="bmImg" id="osm" src="img/42.png" style="width: 75px; height: 75px; border: solid; border-radius: 5px; border-width: 3px; margin: 3px; margin-bottom: 0%;">
+                    <p style="padding: 0%; margin: 0%;">OpenStreet Map</p>
+                </div>
+                <div style="color: white; text-align: center;">
+                    <img class="bmImg" id="stamenBW" src="img/Tile_stamentonerb&n.png" style="width: 75px; height: 75px; border: solid; border-radius: 5px; border-width: 3px; margin: 3px; margin-bottom: 0%;">
+                    <p style="padding: 0%; margin: 0%;">Stamen B&W</p>
+                </div>
+                <div style="color: white; text-align: center;">
+                    <img class="bmImg" id="stamenWater" src="img/Tile_watercolor_stamen.jpg" style="width: 75px; height: 75px; border: solid; border-radius: 5px; border-width: 3px; margin: 3px; margin-bottom: 0%;">
+                    <p style="padding: 0%; margin: 0%;">Stamen Water</p>
+                </div>
+                <div style="color: white; text-align: center;">
+                    <img class="bmImg" id="esriImagery" src="img/satellite-water.webp" style="width: 75px; height: 75px; border: solid; border-radius: 5px; border-width: 3px; margin: 3px; margin-bottom: 0%;">
+                    <p style="padding: 0%; margin: 0%;">Esri imagery</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="right_container">
+            <div style="background-color: #e9e9e9; height: 100%;" class="centerPanel"
+                    data-dojo-type="dijit/layout/TabContainer"
+                    data-dojo-props="region: 'center', tabPosition: 'top'">
+
+                <div id="chartDiv" 
+                    data-dojo-type="dijit/layout/ContentPane"
+                    data-dojo-props="title: 'Graph'">
+
+                    <canvas id="myChart" height="250"></canvas>
+                    <canvas id="myChart2" height="250"></canvas>
+                </div>
+
+                <div id="legend" style="background-color: #e9e9e9; align-items: center;"
+                        data-dojo-type="dijit/layout/ContentPane"
+                        data-dojo-props="title: 'Legend'">
+                    <img src="img/legend.JPG" alt="Legend">
+                </div>
+
+                <div id="modal-box"
+                        data-dojo-type="dijit/layout/ContentPane"
+                        data-dojo-props="title: 'Infos'">
+
+                    <div style="padding: 10px; height: 800px;">
+                        <div style="background-color: #1566b6; height: 50px; color: white; text-align: center;">
+                            <h3 style="padding: 0pt; margin: 0pt; padding-top: 10px;">
+                                What is GeoRisk?
+                            </h3>
+                        </div>
+                        <p>
+                            The aim of this project is to show the extend of floods in the councils of yaounde 5 and 7, and thier impacts on socio-economic activities.
+                            This is a tool that can be used by city planners to have information on the flood risk when planning.
+                        </p>
+                    </div>
+                    <!-- <div style="background-color: #1566b6; height: 50px; text-align: center;">
+                        <button id="close" style="width: 100px; height: 35px; margin-top: 7px;">
+                            Close
+                        </button>
+                    </div> -->
+                </div>
+
+            </div>
+ 
+        </div>
+        </div>
+        <footer><b>Designed by Derrick Demeveng</b></footer>
+
+        <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"></script>
+        <script>
+            require(["dojo/parser", "dijit/layout/BorderContainer", "dijit/layout/TabContainer", "dijit/layout/ContentPane", "dojo/domReady!"], function(parser){
+                parser.parse();
+            });
+        </script>
+
+      </body>
+  </html>

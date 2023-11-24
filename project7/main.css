@@ -1,0 +1,69 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+#viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+  
+#appLayout {
+    height: 100%;
+}
+#leftCol {
+    width: 14em;
+
+}
+  
+.claro .demoLayout .edgePanel {
+    background-color: #d0e9fc;
+}
+
+#drop-downs{
+    background-color: aliceblue;
+    padding: 5px;
+}
+
+.panel-side {
+    padding: 2px;
+    box-sizing: border-box;
+    height: 100%;
+    top: 0;
+    right: 0;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.6);
+    overflow: auto;
+    z-index: 60;
+}
+
+.panel-side h2 {
+    padding: 0 20px;
+    margin: 20px 0;
+}
+
+.panel-side ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.panel-side li {
+    padding: 5px 20px;
+}
+
+.panel-result {
+    cursor: pointer;
+    margin: 2px 0;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.panel-result:hover,
+.panel-result:focus {
+    color: orange;
+    background-color: rgba(0, 0, 0, 0.75);
+}    
