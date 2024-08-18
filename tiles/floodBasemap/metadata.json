@@ -1,9 +1,0 @@
-{
-    "description": "flood basemap of Yaounde", 
-    "bounds": "11.3751,3.8155,11.5937,3.9614", 
-    "minzoom": "0", 
-    "version": "1.0.0", 
-    "template": "", 
-    "maxzoom": "17", 
-    "name": "floodBasemapYaunde"
-}
