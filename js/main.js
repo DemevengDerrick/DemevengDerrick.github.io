@@ -581,6 +581,7 @@
         const tl = gsap.timeline();
         tl.to('.hero .line-inner', { yPercent: 0, y: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out' })
             .fromTo('.hero-eyebrow', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.9')
+            .fromTo('.hero-title', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.85')
             .fromTo('.hero-meta', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, '-=0.8');
     }
 
