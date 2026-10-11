@@ -438,8 +438,8 @@
         const ctx = canvas.getContext('2d');
         const CELL = 16;
         const LEVELS = [-1.2, -0.8, -0.4, 0, 0.4, 0.8, 1.2, 1.6];
-        // Role accents (spatial teal, engineer blue, analyst orange) as RGB for the contour strokes.
-        const HUES = ['76,201,166', '124,184,240', '242,166,90'];
+        // Contour strokes: the teal accent plus soft white lines.
+        const HUES = ['76,201,166', '245,245,244', '245,245,244'];
         let w, h, cols, rows, field, t = 0, visible = true, raf = 0, last = 0;
         const mouse = { x: -9999, y: -9999, tx: -9999, ty: -9999 };
 
