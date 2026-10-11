@@ -409,8 +409,8 @@
             fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/v5.1.2/geojson/ne_110m_admin_0_countries.geojson')
                 .then((r) => r.json())
                 .then((geo) => {
-                    const base = { color: '#39424c', weight: 0.6, fillColor: '#1a2129', fillOpacity: 1 };
-                    const hit = { color: '#11161c', weight: 0.6, fillColor: '#4cc9a6', fillOpacity: 0.85 };
+                    const base = { color: '#555d66', weight: 0.6, fillColor: '#3b424a', fillOpacity: 1 };
+                    const hit = { color: '#2e343b', weight: 0.6, fillColor: '#4cc9a6', fillOpacity: 0.85 };
                     L.geoJSON(geo, {
                         style: (f) => (D.countries[f.properties.ADM0_A3] ? hit : base),
                         onEachFeature: (f, layer) => {
