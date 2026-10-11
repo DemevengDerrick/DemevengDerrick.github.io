@@ -1,200 +1,358 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Derrick Demeveng | Spatial Data Scientist · Data Engineer · Data Analyst</title>
+    <meta name="title" content="Derrick Demeveng | Spatial Data Scientist · Data Engineer · Data Analyst">
+    <meta name="description" content="Derrick Demeveng: spatial data scientist, data engineer and data analyst with close to a decade turning geospatial data into public health and population intelligence for UNFPA, WHO, the World Bank, GIZ and the Gates Foundation. Based in Ottawa, Canada.">
+    <meta name="keywords" content="Derrick Demeveng, Derrick Chefor Ymele Demeveng, Spatial Data Scientist, Data Engineer, Data Analyst, GIS, Geospatial Analyst, Spatial Epidemiology, Public Health, UNFPA, WHO, PostGIS, Python, R, Power BI, ArcGIS, QGIS, Ottawa, Canada">
+    <meta name="author" content="Derrick Chefor Ymele Demeveng">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://demevengderrick.github.io/">
 
-    <script src="index.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://demevengderrick.github.io/">
+    <meta property="og:title" content="Derrick Demeveng | Spatial Data Scientist · Data Engineer · Data Analyst">
+    <meta property="og:description" content="Close to a decade turning spatial data into public health and population intelligence. Based in Ottawa, Canada.">
+    <meta property="og:image" content="https://demevengderrick.github.io/images/brand/me.jpg">
+    <meta property="og:site_name" content="Derrick Demeveng">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@demeveng">
+    <meta name="twitter:title" content="Derrick Demeveng | Spatial Data Scientist · Data Engineer · Data Analyst">
+    <meta name="twitter:image" content="https://demevengderrick.github.io/images/brand/me.jpg">
 
-    <title>Derrick Demeveng</title>
+    <meta name="geo.region" content="CA-ON">
+    <meta name="geo.placename" content="Ottawa">
+    <meta name="theme-color" content="#11161c">
+    <meta name="msvalidate.01" content="5645031D1241E501AEECA20DF3EBBE58">
+    <meta name="google-site-verification" content="FOB8lJxdqRm1LcZEaLlCKNLDhicD1PFTTQPvRZ4Yb6I">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Derrick Demeveng",
+        "alternateName": ["Derrick Chefor Ymele Demeveng", "Demeveng Derrick"],
+        "url": "https://demevengderrick.github.io/",
+        "image": "https://demevengderrick.github.io/images/brand/me.jpg",
+        "jobTitle": "Spatial Data Scientist",
+        "worksFor": { "@type": "Organization", "name": "UNFPA", "url": "https://www.unfpa.org" },
+        "alumniOf": [
+            { "@type": "CollegeOrUniversity", "name": "Pennsylvania State University" },
+            { "@type": "CollegeOrUniversity", "name": "Massachusetts Institute of Technology" },
+            { "@type": "CollegeOrUniversity", "name": "National Advanced School of Public Works (ENSTP)" }
+        ],
+        "knowsAbout": ["Spatial Data Science", "Data Engineering", "Data Analysis", "GIS", "Spatial Epidemiology", "Accessibility Modelling", "PostGIS", "Python", "R", "Power BI", "ArcGIS", "QGIS"],
+        "address": { "@type": "PostalAddress", "addressLocality": "Ottawa", "addressRegion": "Ontario", "addressCountry": "Canada" },
+        "sameAs": [
+            "https://linkedin.com/in/demeveng-derrick",
+            "https://github.com/DemevengDerrick",
+            "https://x.com/demeveng",
+            "https://www.researchgate.net/profile/Derrick-Demeveng",
+            "https://demevengderrick.github.io/maps/"
+        ]
+    }
+    </script>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%2311161c'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial Black,sans-serif' font-size='30' fill='%234cc9a6'>DD</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.13/dist/lenis.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script>document.documentElement.classList.replace('no-js', 'js');</script>
 </head>
 <body>
-    <header style="height: 40vh; background: url(images/DSC_1186.jpg) no-repeat center center; background-size: cover; margin-bottom: 20px">
-        <div class="container">
-            <article>
-                <img class="img-fluid rounded-circle" style="width: 200px; height: 200px; margin-top: 20px;" src="images/profile_pic.jpg" alt="profile-picture">
-                <div style="justify-content: center;">
-                    <p style="text-align: center;"><h4><strong>Derrick Demeveng</strong><br>GIS Professional</p>
-                </div>
-            </article>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Preloader -->
+    <div class="preloader" aria-hidden="true">
+        <div class="preloader-inner">
+            <span class="preloader-count">0</span>
+            <span class="preloader-label mono">Loading spatial layers</span>
         </div>
+    </div>
+
+    <div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
+    <div class="hover-preview" aria-hidden="true"><img alt=""></div>
+
+    <!-- Navigation -->
+    <header class="nav">
+        <a href="#home" class="nav-logo" aria-label="Derrick Demeveng, home">DD<span>©</span></a>
+        <nav class="nav-links" aria-label="Primary">
+            <a href="#work" data-text="Work">Work</a>
+            <a href="#disciplines" data-text="Disciplines">Disciplines</a>
+            <a href="#experience" data-text="Experience">Experience</a>
+            <a href="#research" data-text="Research">Research</a>
+            <a href="#contact" data-text="Contact">Contact</a>
+        </nav>
+        <a href="CV_Derrick_Demeven_Spatial_Data_Scientist.pdf" class="nav-cv mono" download>CV ↓</a>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+            <span></span><span></span>
+        </button>
     </header>
-    <div class="container">
 
-        <section class="content bg-transparent" style="text-align: center;">
-            <h1 style="color: #17a2b8;">Welcome to My e-Portfolio</h1>
-        </section>
+    <div class="menu" id="menu" aria-hidden="true">
+        <nav aria-label="Mobile">
+            <a href="#work">Work</a>
+            <a href="#disciplines">Disciplines</a>
+            <a href="#experience">Experience</a>
+            <a href="#research">Research</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="menu-foot mono">
+            <a href="mailto:demeveng@gmail.com">demeveng@gmail.com</a>
+            <span>Ottawa, Canada</span>
+        </div>
+    </div>
 
-        <!-- <section class="">
-            <ul class="list-inline text-light bg-info">
-                <li class="list-inline-item" href="#"><h4>Biography</h4></li>
-                <li class="list-inline-item" href="#"><h4>Projects</h4></li>
-                <li class="list-inline-item" href="#"><h4>Education</h4></li>
-                <li class="list-inline-item" href="#"><h4>Galery</h4></li>
-            </ul>
-        </section> -->
+    <main id="main">
 
-        <section class="content">
-            <h1 style="text-align: center; background: #17a2b8; color: white;">Biography</h1>
-            <p>
-                GIS practitionner with 6 years of professional experience (4 working as a fulltime GIS Analyst). Highly experienced in geospatial data acquisition through techniques such
-                Remote sensing (Optical and radar), photogrammetry (drone), GPS surveys for high precision data and ODK collect, Kobo collect and QField for socio-economical 
-                data collection. Data Quality assessment (QA), Data management, analysis and Monitoting and Evaluation (M&E) are also important aspects of my experience working as a GIS
-                professional. <br><br>
-                <Strong>Education :</Strong> Masters in Spatial Data Science | Pennsylvania State University | USA <br> Graduate Certificate in Geospatial Programming | Pennsylvania State University | USA <br>
-                Masters in Engineering (MEng) in Land and Surveys | National Advance School of Public Works | CAMEROON
-                <br><br>
-                <strong>Skills :</strong> Data collection, Data management, Monitoring and Evaluation (M&E) and reporting, Data Analysis, Data Visualization, GIS Training, Project management
-                <br><br>
-                <strong>Inter-personal Skills: </strong> Funny, Team player, respectfull and ready to learn.
-                <br><br>
-                <strong>Languages :</strong> Fluent in speaking, reading and writing of both French and English.
-                <br><br>
-                <strong>Softwares : </strong> powerBI, Tableau, ArcGIS (ArcGIS pro, ArcGIS Online), QGIS, AutoCAD, ODK, Kobo Collect, QField, Excel, Word, PowerPoint, Access, Postgres/postGIS, KNIME
-                <br><br>
-                <strong>Programming :</strong> Python, HTML, CSS, JavaScript, SQL, R
-                <br><br>
-                <Strong>Libraries / Frameworks :</Strong> Leaflet, ArcGIS JS API, ArcPy
-                <br><br>
-                <Strong>Countries Worked in :</Strong> Senegal, Mauritania, Benin, Burkina-Faso and Cameroon
-            </p>
-        </section>
-        <section>
-            <h1 style="text-align: center; background: #17a2b8; color: white;">Projects</h1>
-            <div id="container">
-                <h3 style="text-align: center; background: #17a2b8; color: white">Web Mapping</h3>
-                <h4>Esri JavaScript API Maps</h4>
-                <ul class="list-unstyled text-info">
-                    <li><a class="text-decoration-none" href="FinalProject">3D interactive participatory flood map in Douala</a></li>
-                    <li><a class="text-decoration-none" href="project7">US 2020 Presidential Elections</a></li>
-                    <li><a class="text-decoration-none" href="project5">Cameroon Population Estimate Web Map</a></li>
-                    <li><a class="text-decoration-none" href="https://pennstate.maps.arcgis.com/apps/View/index.html?webmap=7b7e5d79bf5a47ee9fb5d66fe76c8272">Cameroon OpenStreetMap Data</a></li>
-                    <li><a class="text-decoration-none" href="lesson1">ArcGIS Online Web Map</a></li>
-                    <li><a class="text-decoration-none" href="MIB">Message in the bottle</a></li>
-                </ul>
-            </div>
-
-            <div class="container" style="text-align: center">
-                <div style="background-color: black; color: burlywood; opacity: 90%; padding: 5px;">
-                <h3><b>MY HOME LOCATION</h3>
-                <p class="codepen" data-height="500" data-theme-id="dark" data-default-tab="js,result" data-user="derrickdemeveng" data-slug-hash="JjbzGWO" style="height: 500px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Project 3 : Part III">
-                  <span>See the Pen <a href="https://codepen.io/derrickdemeveng/pen/JjbzGWO">
-                  Project 3 : Part III</a> by Derrick Demeveng (<a href="https://codepen.io/derrickdemeveng">@derrickdemeveng</a>)
-                  on <a href="https://codepen.io">CodePen</a>.</span>
-                </p>
-                <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+        <!-- Hero -->
+        <section id="home" class="hero section-dark">
+            <canvas class="hero-canvas" aria-hidden="true"></canvas>
+            <div class="hero-inner">
+                <p class="eyebrow mono hero-eyebrow"><span class="dot"></span> Available for collaborations · Ottawa, Canada</p>
+                <h1 class="hero-name">
+                    <span class="line"><span class="line-inner">Derrick</span></span>
+                    <span class="line"><span class="line-inner">Demeveng</span></span>
+                </h1>
+                <div class="hero-meta">
+                    <p class="hero-role">
+                        <span class="mono">I work as a</span>
+                        <span class="role-rotator" aria-live="polite">
+                            <span class="role-word role-spatial is-active">Spatial Data Scientist</span>
+                            <span class="role-word role-engineer">Data Engineer</span>
+                            <span class="role-word role-analyst">Data Analyst</span>
+                        </span>
+                    </p>
+                    <p class="hero-lede">Close to a decade turning spatial data into public health and population intelligence, from polio surveillance across 47 countries to population and climate-exposure analytics in 120+.</p>
+                    <p class="hero-clients mono">Delivered for <span>UNFPA</span> · <span>WHO</span> · <span>World Bank</span> · <span>GIZ</span> · <span>Gates Foundation</span></p>
                 </div>
             </div>
+            <a href="#about" class="hero-scroll mono" aria-label="Scroll to about">Scroll <span>↓</span></a>
+        </section>
 
-            <br>
-            <div id="container">
-                <h4>Leaflet API</h4>
-                <ul>
-                    <li><a href="geog585/project7">Flood risk mappin</a></li>
-                </ul>
-                <ul>
-                    <li><a href="script">Picture-Map Interaction Map</a></li>
-                </ul>
-            </div>
+        <!-- Marquee -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-track"></div>
+        </div>
 
-            <br>
-            <h2 style="text-align: center; background: #17a2b8; color: white">Process Automation</h2>
-            <div id="container">
-                <h4>ArcPy</h4>
-                <ul>
-                    <li>Pooling OpenStreetMap Data into ArcGIS</li>
-                </ul>
-                <iframe
-                    src="https://www.youtube.com/embed/CyjUxU_jM_w">
-                </iframe>
-            </div>
+        <!-- About -->
+        <section id="about" class="about section-light">
+            <div class="container">
+                <p class="eyebrow mono reveal">01 — About</p>
+                <div class="about-grid">
+                    <figure class="about-photo reveal-clip">
+                        <img src="images/brand/me.jpg" alt="Portrait of Derrick Demeveng" loading="lazy">
+                    </figure>
+                    <div class="about-text">
+                        <p class="about-lead split-words">I build the analytics, pipelines and maps that tell decision makers where people are, what they can reach, and where risk concentrates.</p>
+                        <p class="reveal">Today I'm Programme Specialist for Geospatial Analysis at <strong>UNFPA</strong>. Before that I spent five years with <strong>WHO's Regional Office for Africa</strong>, first as a GIS analyst for polio surveillance and then as the data analyst running laboratory ETL and data quality for 16 labs across 47 countries. My earlier work covered open spatial data infrastructure, disaster-risk mapping for the World Bank and GIZ, and geodetic surveying in Cameroon.</p>
+                        <p class="reveal">I hold an MSc in Spatial Data Science from Penn State, a Professional Certificate in Data Engineering from MIT and an MEng in Land Surveying. I work in English and French, and I author <a href="https://plugins.qgis.org/plugins/odkconnector2/" target="_blank" rel="noopener" class="link-underline">ODKConnector</a>, a published QGIS plugin.</p>
+                        <div class="about-actions reveal">
+                            <a href="CV_Derrick_Demeven_Spatial_Data_Scientist.pdf" class="btn magnetic" download><span>Download CV</span></a>
+                            <a href="#contact" class="btn btn-ghost magnetic"><span>Get in touch</span></a>
+                        </div>
+                    </div>
+                </div>
 
-            <br>
-            <div id="container">
-                <h2 style="text-align: center; background: #17a2b8; color: white">Maps and Data Visualizations</h2>
-                <br>
-                <figure>
-                    <h4>Tableau</h4>
-                    <ul>
-                        <li><a href='https://public.tableau.com/views/lab9FinalProject/Participatoryfloodmapping?:language=en-US&:embed=y&:embed_code_version=3&:loadOrderID=0&:display_count=y&publish=yes&:origin=viz_share_link';>Flood risk in Tableau</a></li>
-                    </ul>
-                    <br>
-                    <div class='tableauPlaceholder' id='viz1626559719713' style='position: relative'><noscript><a href='#'><img alt='Participatory flood mapping: Douala city (Cameroon) ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;la&#47;lab9FinalProject&#47;Participatoryfloodmapping&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='lab9FinalProject&#47;Participatoryfloodmapping' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;la&#47;lab9FinalProject&#47;Participatoryfloodmapping&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1626559719713');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='1016px';vizElement.style.height='991px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-                    <br>
-                    <hr style="border: 10px solid #17a2b8">
-                    <h4>ArcGIS</h4>
-                    <br>
-                    <img class="img-fluid" src="images/Demeveng_Lab2.png" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/dot.png" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/lab3.png" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/sequential.png" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/Divergent.png" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/sequential1.png" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/Layout1.jpg" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/Layout11.jpg" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/Layout12.jpg" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/Layout1.png" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/Generosity.png" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/Freedom to make choices.png" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/Social support.png" alt="lab2">
-                    <br>
-                    <hr style="border: 2px solid #17a2b8">
-                    <br>
-                    <img class="img-fluid" src="images/GDP.png" alt="lab2">
-
-                </figure>
+                <dl class="stats">
+                    <div class="stat"><dt class="mono">Years of experience</dt><dd><span class="count" data-to="9">0</span><sup>+</sup></dd></div>
+                    <div class="stat"><dt class="mono">Countries in WHO AFRO surveillance</dt><dd><span class="count" data-to="47">0</span></dd></div>
+                    <div class="stat"><dt class="mono">Countries in UNFPA programmes</dt><dd><span class="count" data-to="120">0</span><sup>+</sup></dd></div>
+                </dl>
             </div>
         </section>
 
-        <footer style="text-align: center; background-color: #17a2b8; color: white;">Developed by Derrick Demeveng</footer>
+        <!-- Disciplines -->
+        <section id="disciplines" class="disciplines section-dark">
+            <div class="container">
+                <p class="eyebrow mono reveal">02 — Disciplines</p>
+                <h2 class="display split-lines">Three roles,<br>one problem space.</h2>
+                <p class="section-intro reveal">My work cuts across analysis, engineering and spatial science, often in the same project. Pick a lens to filter the work.</p>
+            </div>
+            <div class="discipline-list" id="disciplineList"><!-- rendered by main.js --></div>
+        </section>
 
+        <!-- Selected work -->
+        <section id="work" class="work section-light">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow mono reveal">03 — Selected work</p>
+                    <h2 class="display split-lines">Selected<br>work</h2>
+                </div>
+                <ol class="featured" id="featuredList"><!-- rendered by main.js --></ol>
+            </div>
+        </section>
+
+        <!-- All work -->
+        <section id="all-work" class="all-work section-light">
+            <div class="container">
+                <div class="section-head section-head-row">
+                    <div>
+                        <p class="eyebrow mono reveal">04 — Index</p>
+                        <h2 class="display-sm split-lines">All projects</h2>
+                    </div>
+                    <div class="filters" role="toolbar" aria-label="Filter projects">
+                        <div class="filter-group" id="roleFilters"></div>
+                        <div class="filter-group filter-group-sm" id="topicFilters"></div>
+                    </div>
+                </div>
+                <p class="filter-status mono" id="filterStatus" aria-live="polite"></p>
+                <div class="grid" id="projectGrid"><!-- rendered by main.js --></div>
+                <noscript><p>The project index needs JavaScript. Browse the code on <a href="https://github.com/DemevengDerrick">GitHub</a>.</p></noscript>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section id="experience" class="experience section-sand">
+            <div class="container">
+                <p class="eyebrow mono reveal">05 — Experience</p>
+                <h2 class="display split-lines">Where I've<br>worked</h2>
+                <div class="timeline" id="timeline"><!-- rendered by main.js --></div>
+            </div>
+        </section>
+
+        <!-- Research -->
+        <section id="research" class="research section-light">
+            <div class="container">
+                <div class="research-grid">
+                    <div>
+                        <p class="eyebrow mono reveal">06 — Research</p>
+                        <h2 class="display-sm split-lines">Publications</h2>
+                        <a href="https://www.researchgate.net/profile/Derrick-Demeveng" target="_blank" rel="noopener" class="link-underline mono reveal">All on ResearchGate ↗</a>
+                    </div>
+                    <ul class="pub-list" id="pubList"><!-- rendered by main.js --></ul>
+                </div>
+
+                <div class="research-grid edu-block">
+                    <div>
+                        <p class="eyebrow mono reveal">07 — Education</p>
+                        <h2 class="display-sm split-lines">Learning</h2>
+                    </div>
+                    <div>
+                        <ul class="edu-list" id="eduList"></ul>
+                        <div class="cert-cols">
+                            <div class="reveal">
+                                <h3 class="mono small-head">Certifications</h3>
+                                <ul class="plain-list" id="certList"></ul>
+                            </div>
+                            <div class="reveal">
+                                <h3 class="mono small-head">Awards</h3>
+                                <ul class="plain-list" id="awardList"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countries -->
+        <section id="countries" class="countries section-dark">
+            <div class="container">
+                <div class="section-head section-head-row">
+                    <div>
+                        <p class="eyebrow mono reveal">08 — Footprint</p>
+                        <h2 class="display-sm split-lines">Countries<br>worked in</h2>
+                    </div>
+                    <p class="countries-count reveal"><span class="count" data-to="26">0</span><span class="mono">countries · 5 continents</span></p>
+                </div>
+                <div class="map-wrap reveal">
+                    <div id="countriesMap" class="countries-map" role="img" aria-label="World map highlighting the countries Derrick has worked in"></div>
+                </div>
+                <p class="country-names mono" id="countryNames"></p>
+            </div>
+        </section>
+
+        <!-- Archive -->
+        <section id="archive" class="archive section-sand">
+            <div class="container">
+                <div class="section-head section-head-row">
+                    <div>
+                        <p class="eyebrow mono reveal">09 — Archive</p>
+                        <h2 class="display-sm split-lines">Earlier &amp;<br>academic work</h2>
+                    </div>
+                    <p class="section-intro reveal">Web maps and cartography exercises from the Penn State GIS programme: where the craft started.</p>
+                </div>
+                <ul class="archive-list" id="archiveList"></ul>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="contact section-dark">
+            <div class="container">
+                <p class="eyebrow mono reveal">10 — Contact</p>
+                <a href="mailto:demeveng@gmail.com" class="contact-big" aria-label="Email demeveng@gmail.com">
+                    <span class="line"><span class="line-inner">Let's</span></span>
+                    <span class="line"><span class="line-inner">talk <em>↗</em></span></span>
+                </a>
+                <div class="contact-grid">
+                    <div>
+                        <p class="mono small-head">Email</p>
+                        <a href="mailto:demeveng@gmail.com" class="link-underline">demeveng@gmail.com</a>
+                    </div>
+                    <div>
+                        <p class="mono small-head">Based in</p>
+                        <p>Ottawa, Canada</p>
+                    </div>
+                    <div>
+                        <p class="mono small-head">Elsewhere</p>
+                        <ul class="social">
+                            <li><a href="https://linkedin.com/in/demeveng-derrick" target="_blank" rel="noopener" class="link-underline">LinkedIn</a></li>
+                            <li><a href="https://github.com/DemevengDerrick" target="_blank" rel="noopener" class="link-underline">GitHub</a></li>
+                            <li><a href="https://www.researchgate.net/profile/Derrick-Demeveng" target="_blank" rel="noopener" class="link-underline">ResearchGate</a></li>
+                            <li><a href="https://x.com/demeveng" target="_blank" rel="noopener" class="link-underline">X</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="mono small-head">Résumé</p>
+                        <a href="CV_Derrick_Demeven_Spatial_Data_Scientist.pdf" class="link-underline" download>Download CV (PDF) ↓</a>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer mono">
+                <span>© <span id="year">2026</span> Derrick Demeveng</span>
+                <span>Designed &amp; built in plain HTML, CSS &amp; JS</span>
+                <a href="#home" class="link-underline">Back to top ↑</a>
+            </footer>
+        </section>
+    </main>
+
+    <!-- Project modal -->
+    <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+        <div class="modal-backdrop" data-close></div>
+        <article class="modal-panel" data-lenis-prevent>
+            <button class="modal-close" data-close aria-label="Close">×</button>
+            <div class="modal-media" id="modalMedia"></div>
+            <div class="modal-body">
+                <p class="mono modal-kicker" id="modalKicker"></p>
+                <h2 id="modalTitle"></h2>
+                <p id="modalDesc"></p>
+                <ul class="chips" id="modalTools"></ul>
+                <div class="modal-links" id="modalLinks"></div>
+            </div>
+            <div class="modal-more" id="modalMore"></div>
+        </article>
     </div>
+
+    <!-- Lightbox for archive images -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview" hidden>
+        <button class="modal-close" data-close aria-label="Close">×</button>
+        <figure><img alt=""><figcaption class="mono"></figcaption></figure>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+    <script src="js/data.js" defer></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>

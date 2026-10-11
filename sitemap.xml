@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <url>
+        <loc>https://demevengderrick.github.io/</loc>
+        <lastmod>2026-10-11</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://demevengderrick.github.io/images/brand/me.jpg</image:loc>
+            <image:title>Derrick Demeveng — Spatial Data Scientist</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://demevengderrick.github.io/maps/</loc>
+        <lastmod>2026-10-11</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+</urlset>

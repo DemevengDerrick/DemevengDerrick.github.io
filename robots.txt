@@ -1,0 +1,5 @@
+# robots.txt for Derrick Demeveng — https://demevengderrick.github.io/
+User-agent: *
+Allow: /
+
+Sitemap: https://demevengderrick.github.io/sitemap.xml
