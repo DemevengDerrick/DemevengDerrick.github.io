@@ -43,7 +43,7 @@
     /*
      * Project fields:
      *  id, title, roles[], topic, year, summary (card), description (modal),
-     *  tools[], image (optional), links[{label,url}] (optional), featured (optional)
+     *  tools[], image (optional), links[{label,url}] (optional)
      */
     const projects = [
         // ---------- Spatial Data Science ----------
@@ -53,8 +53,7 @@
             roles: ['spatial'], topic: 'health', year: '2025',
             summary: 'Real-time geographic accessibility modelling to prioritise Emergency Obstetric and Newborn Care facilities.',
             description: 'For UNFPA, I delivered real-time geospatial accessibility modelling for Malawi\'s Emergency Obstetric and Newborn Care (EmONC) prioritisation. Travel-time surfaces to facilities, combined with population distribution, showed where maternal and newborn services most needed strengthening. The approach was then taught to 50+ regional trainers and technical teams from more than 20 countries.',
-            tools: ['AccessMod', 'ArcGIS Pro', 'WorldPop', 'Travel-time modelling'],
-            featured: true
+            tools: ['AccessMod', 'ArcGIS Pro', 'WorldPop', 'Travel-time modelling']
         },
         {
             id: 'ssp-exposure',
@@ -64,8 +63,7 @@
             description: 'A population exposure analysis that combines WorldPop population projections with the Degree of Urbanisation classification. It quantifies how many people, and which settlement types, are exposed to climate hazards today and under alternative futures. It is built as an end-to-end R pipeline that combines population, hazard and settlement layers.',
             tools: ['R', 'terra / sf', 'WorldPop', 'DEGURBA'],
             image: 'images/projects/climate-flood-exposure-nga.jpg',
-            links: [{ label: 'Code', url: GH + 'climate_change' }],
-            featured: true
+            links: [{ label: 'Code', url: GH + 'climate_change' }]
         },
         {
             id: 'degurba',
@@ -78,8 +76,7 @@
             links: [
                 { label: 'SDG indicators notebook', url: 'https://demevengderrick.github.io/DEGURBA/indicators_notebook_for_pdf.html' },
                 { label: 'Dummy-data tutorial', url: 'https://demevengderrick.github.io/Degurba-dummy-data-creation/application%20of%20degurba%20to%20dummy%20microcensus%20data.html' }
-            ],
-            featured: true
+            ]
         },
         {
             id: 'hotspot',
@@ -88,8 +85,7 @@
             summary: 'Statistically significant clusters of disease burden across the WHO African Region.',
             description: 'I used spatial autocorrelation methods to find statistically significant clusters of high and low disease burden. High-confidence hotspots show where transmission is concentrated, which gives evidence for prioritising surveillance and resources.',
             tools: ['ArcGIS Pro', 'Getis-Ord Gi*', 'Spatial statistics'],
-            image: ASSET + 'e30f9c3a-fb38-44c5-824e-fdd24cc75e46',
-            featured: true
+            image: ASSET + 'e30f9c3a-fb38-44c5-824e-fdd24cc75e46'
         },
         {
             id: 'disease-clusters',
@@ -242,8 +238,7 @@
             links: [
                 { label: 'Code', url: GH + 'Lab_data_management' },
                 { label: 'Publication', url: 'https://www.researchgate.net/publication/394056317_Harnessing_laboratory_data_for_poliovirus_eradication_contributions_of_the_Africa_regional_polio_laboratory_data_management_team_2022_-_2024' }
-            ],
-            featured: true
+            ]
         },
         {
             id: 'odkconnector',
@@ -256,8 +251,7 @@
             links: [
                 { label: 'QGIS plugin', url: 'https://plugins.qgis.org/plugins/odkconnector2/' },
                 { label: 'Code', url: GH + 'ETL-Connector-for-ODK' }
-            ],
-            featured: true
+            ]
         },
         {
             id: 'es-infra',
@@ -431,9 +425,6 @@
             image: ASSET + 'e0604083-8703-4028-8529-54847d2ccb58'
         }
     ];
-
-    // Order of the "Selected work" list.
-    const featured = ['emonc-malawi', 'polio-lab-etl', 'ssp-exposure', 'odkconnector', 'hotspot', 'degurba'];
 
     const experience = [
         {
@@ -618,5 +609,5 @@
         'Google Earth Engine', 'MapLibre GL', 'Leaflet', 'GeoPandas', 'Airflow', 'FastAPI', 'BigQuery',
         'Microsoft Fabric', 'ODK', 'QField', 'GDAL'];
 
-    window.PORTFOLIO = { roles, topics, projects, featured, experience, education, certifications, awards, publications, archive, countries, tools };
+    window.PORTFOLIO = { roles, topics, projects, experience, education, certifications, awards, publications, archive, countries, tools };
 })();

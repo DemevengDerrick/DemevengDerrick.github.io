@@ -83,19 +83,6 @@
         }).join('');
     }
 
-    function renderFeatured() {
-        $('#featuredList').innerHTML = D.featured.map((id, i) => {
-            const p = byId[id];
-            return `<li class="feat role-${p.roles[0]}" data-id="${id}" tabindex="0" role="button" aria-label="Open ${esc(p.title)}" data-cursor="Open">
-                <span class="feat-num">${String(i + 1).padStart(2, '0')}</span>
-                <span class="feat-title">${titleHTML(p.title)}</span>
-                <ul class="feat-roles chips">${roleChips(p.roles)}</ul>
-                <span class="feat-year">${esc(p.year)}</span>
-                ${p.image ? `<div class="feat-thumb">${mediaHTML(p)}</div>` : ''}
-            </li>`;
-        }).join('');
-    }
-
     function renderFilters() {
         const rc = (k) => D.projects.filter((p) => p.roles.includes(k)).length;
         $('#roleFilters').innerHTML =
@@ -236,7 +223,7 @@
                 links.forEach((l) => l.classList.toggle('is-active', l.getAttribute('href') === '#' + en.target.id));
             });
         }, { rootMargin: '-45% 0px -50% 0px' });
-        ['work', 'disciplines', 'experience', 'research', 'contact'].forEach((id) => { const s = $('#' + id); if (s) io.observe(s); });
+        ['all-work', 'disciplines', 'experience', 'research', 'contact'].forEach((id) => { const s = $('#' + id); if (s) io.observe(s); });
     }
 
     function initRoleRotator() {
@@ -359,7 +346,7 @@
         const lightbox = $('#lightbox');
 
         document.addEventListener('click', (e) => {
-            const card = e.target.closest('.card, .feat');
+            const card = e.target.closest('.card');
             if (card) { openProject(card.dataset.id); return; }
             const arch = e.target.closest('[data-archive]');
             if (arch) {
@@ -372,7 +359,7 @@
         });
         document.addEventListener('keydown', (e) => {
             if (e.key !== 'Enter' && e.key !== ' ') return;
-            const item = e.target.closest && e.target.closest('.card, .feat');
+            const item = e.target.closest && e.target.closest('.card');
             if (item && item === e.target) { e.preventDefault(); openProject(item.dataset.id); }
         });
 
@@ -624,7 +611,6 @@
             scrollTrigger: { trigger, start: 'top 82%' }
         });
         staggerIn('.discipline', '#disciplineList');
-        staggerIn('.feat', '#featuredList');
         staggerIn('.job', '#timeline');
         ScrollTrigger.batch('#projectGrid .card', {
             start: 'top 92%',
@@ -673,29 +659,16 @@
         if (!finePointer) return;
         const cursor = $('.cursor');
         const label = $('.cursor-label');
-        const preview = $('.hover-preview');
         const xTo = gsap.quickTo(cursor, 'x', { duration: 0.18, ease: 'power3' });
         const yTo = gsap.quickTo(cursor, 'y', { duration: 0.18, ease: 'power3' });
-        const pxTo = gsap.quickTo(preview, 'x', { duration: 0.6, ease: 'power3' });
-        const pyTo = gsap.quickTo(preview, 'y', { duration: 0.6, ease: 'power3' });
 
-        window.addEventListener('pointermove', (e) => { xTo(e.clientX); yTo(e.clientY); pxTo(e.clientX); pyTo(e.clientY); });
+        window.addEventListener('pointermove', (e) => { xTo(e.clientX); yTo(e.clientY); });
 
         document.addEventListener('pointerover', (e) => {
             const t = e.target.closest('[data-cursor], a, button');
             cursor.classList.toggle('is-hover', !!t && !t.dataset.cursor);
             cursor.classList.toggle('is-label', !!(t && t.dataset.cursor));
             label.textContent = t && t.dataset.cursor ? t.dataset.cursor : '';
-        });
-
-        // Featured list: image (or typographic cover) follows the cursor.
-        $$('.feat').forEach((row) => {
-            row.addEventListener('pointerenter', () => {
-                const p = byId[row.dataset.id];
-                preview.innerHTML = mediaHTML(p, true);
-                preview.classList.add('is-visible');
-            });
-            row.addEventListener('pointerleave', () => preview.classList.remove('is-visible'));
         });
     }
 
@@ -719,7 +692,6 @@
     function boot() {
         renderMarquee();
         renderDisciplines();
-        renderFeatured();
         renderFilters();
         renderGrid();
         renderTimeline();
