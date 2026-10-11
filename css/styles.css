@@ -230,8 +230,10 @@ section { background: var(--bg); color: var(--fg); position: relative; }
     /* Credentials as a third display line, slightly smaller and softer than the name */
     font-size: 0.8em; text-transform: none; letter-spacing: 0.01em; color: var(--grey-400);
 }
+/* Extra room so descenders (the g in MEng) aren't clipped by the line mask */
+.hero .line-creds { padding-bottom: 0.2em; margin-bottom: -0.06em; }
 .hero-title {
-    max-width: 44ch; margin-top: clamp(14px, 2vw, 24px);
+    max-width: 44ch; margin-top: clamp(18px, 2.6vw, 34px);
     font-size: clamp(1.15rem, 2.2vw, 1.9rem); line-height: 1.25; font-weight: 500; letter-spacing: -0.015em; color: var(--white);
 }
 .hero-title em { font-style: normal; color: var(--accent-bright); }
